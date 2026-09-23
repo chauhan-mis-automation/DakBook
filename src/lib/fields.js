@@ -1,6 +1,6 @@
 export const SENDER_DEFAULTS = {
-  sender_name: 'KUDOS LABORATORIES INDIA LIMITED',
-  sender_address: 'B-76, NARAINA PHASE-2, NEAR BENTEX, NEW DELHI 110028',
+  sender_name: 'JEEWAN JYOTI AYURVEDIC SANSTHAN',
+  sender_address: 'OFFICE NO 585, MAHAKAL PARKING, NANGLOI, DELHI 110041',
   sender_phone: '',
 }
 
