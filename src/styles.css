@@ -241,7 +241,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   }
   .bottom-link.active { color: var(--red); border-top-color: var(--red); }
   .head-actions { width: 100%; }
-  .head-actions .btn { flex: 1; }
+  .head-actions .btn { flex: 1; padding: 0 0.6rem; }
+  .date-field { flex: 1 1 130px; }
+  .date-field input { flex: 1; min-width: 0; }
+  .date-count { width: 100%; margin-left: 0; }
 }
 
 /* =========================================================
@@ -341,6 +344,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .cell-main { display: table-cell; }
 .cell-main b { display: block; }
 .cell-actions { white-space: nowrap; }
+.data td[data-label='Date'] { white-space: nowrap; }
 .cell-actions .icon-btn svg { width: 18px; height: 18px; }
 
 .selection-bar {
@@ -354,8 +358,44 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .selection-bar .btn { height: 38px; border-radius: 999px; }
 @keyframes rise { from { opacity: 0; transform: translate(-50%, 12px); } }
 
+.btn-surface { background: var(--surface); }
+
+/* Date range filter */
+.date-bar {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  margin: -0.25rem 0 1rem; padding: 0.6rem 0.75rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+}
+.date-bar-label { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 650; font-size: 0.85rem; color: var(--ink-3); }
+.date-bar-label svg { width: 18px; height: 18px; }
+.date-field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); }
+.date-field input {
+  height: 36px; padding: 0 0.5rem; border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  background: var(--surface); font-variant-numeric: tabular-nums;
+}
+.date-field input:focus { border-color: var(--ink); box-shadow: var(--focus); outline: none; }
+.date-count { margin-left: auto; }
+
+/* Export dialog */
+.file-badge {
+  flex: none; width: 44px; height: 52px; display: grid; place-items: end center; padding-bottom: 6px;
+  border-radius: 4px; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.04em; color: #fff;
+  clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%);
+}
+.file-xlsx { background: #217346; }
+.file-csv { background: var(--ink-3); }
+.export-issues {
+  margin-top: 1rem; padding: 0.75rem 0.9rem; border-radius: var(--r-sm);
+  background: var(--warn-bg); color: var(--warn); font-size: 0.86rem;
+}
+.export-issues p { display: flex; align-items: center; gap: 0.4rem; font-weight: 650; }
+.export-issues svg { width: 16px; height: 16px; }
+.export-issues ul { margin: 0.4rem 0 0; padding-left: 1.3rem; }
+
 /* Mobile: table ko cards mein badlo */
 @media (max-width: 720px) {
+  .search { flex: 1 1 100%; }
+  .chips { flex: 1 1 0; min-width: 0; }
   .table-wrap { background: transparent; border: 0; overflow: visible; }
   .data thead { display: none; }
   .data, .data tbody { display: block; }

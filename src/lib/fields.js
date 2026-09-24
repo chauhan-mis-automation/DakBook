@@ -1,6 +1,6 @@
 export const SENDER_DEFAULTS = {
   sender_name: 'JEEWAN JYOTI AYURVEDIC SANSTHAN',
-  sender_address: 'OFFICE NO 585, MAHAKAL PARKING, NANGLOI, DELHI 110041',
+  sender_address: 'NEAR MAHAKAL PARKING, NANGLOI, DELHI 110041',
   sender_phone: '',
 }
 

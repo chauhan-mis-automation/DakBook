@@ -7,10 +7,15 @@ import { STATUSES } from '../lib/fields'
 import ShipmentForm from '../components/ShipmentForm'
 import PrintLabels, { Label } from '../components/PrintLabels'
 import PrintDialog from '../components/PrintDialog'
+import ExportDialog from '../components/ExportDialog'
 import { useToast } from '../components/Toast'
-import { IconPlus, IconPrint, IconSearch, IconEdit, IconTrash, IconEye, IconClose, IconRefresh } from '../components/Icons'
+import { IconPlus, IconPrint, IconSearch, IconEdit, IconTrash, IconEye, IconClose, IconRefresh, IconDownload, IconCalendar } from '../components/Icons'
 
 const FILTERS = [{ value: 'all', label: 'All' }, ...STATUSES]
+
+// Local date ko YYYY-MM-DD mein (date input isi format mein deta hai)
+const dayKey = (d) => new Date(d).toLocaleDateString('en-CA')
+const niceDate = (k) => new Date(k + 'T00:00:00').toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
 
 // Khaali strings ko null bana do, number ko number
 function clean(form) {
@@ -32,6 +37,9 @@ export default function Parcels() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
+  const [fromDate, setFromDate] = useState('')
+  const [toDate, setToDate] = useState('')
+  const [exporting, setExporting] = useState(false)
   const [selected, setSelected] = useState(new Set())
   const [editing, setEditing] = useState(null) // null = band, {} = naya, row = edit
   const [saving, setSaving] = useState(false)
@@ -61,11 +69,14 @@ export default function Parcels() {
     const q = search.trim().toLowerCase()
     return rows.filter((r) => {
       if (filter !== 'all' && r.status !== filter) return false
+      const day = dayKey(r.created_at)
+      if (fromDate && day < fromDate) return false
+      if (toDate && day > toDate) return false
       if (!q) return true
       return [r.receiver_name, r.barcode_no, r.order_id, r.mobile_no, r.pincode, r.district, r.state]
         .some((x) => x && String(x).toLowerCase().includes(q))
     })
-  }, [rows, search, filter])
+  }, [rows, search, filter, fromDate, toDate])
 
   const allVisibleSelected = visible.length > 0 && visible.every((r) => selected.has(r.id))
 
@@ -148,6 +159,24 @@ export default function Parcels() {
   }, [printRows, load])
 
   const selectedRows = rows.filter((r) => selected.has(r.id))
+  const hasDate = Boolean(fromDate || toDate)
+
+  function setToday() {
+    const t = dayKey(new Date())
+    setFromDate(t)
+    setToDate(t)
+  }
+
+  // Export: rows select hain to wahi, warna jo list mein dikh rahe hain (date filter ke saath)
+  const exportRows = selectedRows.length ? selectedRows : visible
+  const rangeLabel = selectedRows.length
+    ? `${selectedRows.length} selected`
+    : fromDate && toDate && fromDate === toDate ? niceDate(fromDate)
+    : hasDate ? `${fromDate ? niceDate(fromDate) : 'Shuru se'} – ${toDate ? niceDate(toDate) : 'Aaj tak'}`
+    : 'Saari dates'
+  const fileSuffix = hasDate
+    ? `${fromDate || 'start'}_to_${toDate || dayKey(new Date())}`
+    : dayKey(new Date())
   const counts = useMemo(() => {
     const c = { all: rows.length }
     STATUSES.forEach((s) => (c[s.value] = rows.filter((r) => r.status === s.value).length))
@@ -162,6 +191,9 @@ export default function Parcels() {
           <p className="muted">{rows.length} parcels booked</p>
         </div>
         <div className="head-actions">
+          <button className="btn btn-ghost btn-surface" onClick={() => setExporting(true)} disabled={!exportRows.length}>
+            <IconDownload /> Export
+          </button>
           <button className="btn btn-dark" onClick={() => print(selectedRows)} disabled={!selectedRows.length}>
             <IconPrint /> Print{selectedRows.length ? ` (${selectedRows.length})` : ''}
           </button>
@@ -184,6 +216,23 @@ export default function Parcels() {
           ))}
         </div>
         <button className="icon-btn" onClick={load} aria-label="Refresh"><IconRefresh /></button>
+      </div>
+
+      <div className="date-bar">
+        <span className="date-bar-label"><IconCalendar /> Date</span>
+        <label className="date-field">
+          <span>From</span>
+          <input type="date" value={fromDate} max={toDate || undefined} onChange={(e) => setFromDate(e.target.value)} />
+        </label>
+        <label className="date-field">
+          <span>To</span>
+          <input type="date" value={toDate} min={fromDate || undefined} onChange={(e) => setToDate(e.target.value)} />
+        </label>
+        <button className="chip" onClick={setToday}>Aaj</button>
+        {hasDate && (
+          <button className="link-btn" onClick={() => { setFromDate(''); setToDate('') }}>Clear</button>
+        )}
+        {hasDate && <span className="muted small date-count">{visible.length} parcels</span>}
       </div>
 
       <div className="table-wrap">
@@ -209,7 +258,7 @@ export default function Parcels() {
             )}
             {!loading && visible.length === 0 && (
               <tr><td colSpan={9} className="t-center pad">
-                <p className="muted">{rows.length ? 'Is search/filter se koi parcel nahi mila.' : 'Abhi koi parcel nahi hai. "New parcel" se shuru karein.'}</p>
+                <p className="muted">{rows.length ? 'Is search, filter ya date mein koi parcel nahi mila.' : 'Abhi koi parcel nahi hai. "New parcel" se shuru karein.'}</p>
               </td></tr>
             )}
             {!loading && visible.map((r) => (
@@ -267,6 +316,16 @@ export default function Parcels() {
             </footer>
           </div>
         </div>
+      )}
+
+      {exporting && (
+        <ExportDialog
+          rows={exportRows}
+          rangeLabel={rangeLabel}
+          fileSuffix={fileSuffix}
+          onClose={() => setExporting(false)}
+          onDone={(n) => { setExporting(false); toast(`${n} parcels export ho gaye`) }}
+        />
       )}
 
       {printAsk && (

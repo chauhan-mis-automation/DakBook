@@ -102,7 +102,7 @@ export default function ShipmentForm({ initial, onSave, onClose, saving }) {
           <fieldset className="section">
             <legend>Receiver</legend>
             <div className="grid">
-              <Field label="Receiver name" name="receiver_name" value={form.receiver_name} onChange={update} required span={2} autoFocus placeholder="Tuhin Kumar" />
+              <Field label="Receiver name" name="receiver_name" value={form.receiver_name} onChange={update} required span={2} autoFocus placeholder="Jaise: Tuhin Kumar" />
               <Field label="C/O" name="care_of" value={form.care_of} onChange={update} span={2} placeholder="C/O Tuhin Kumar" />
               <Field label="Full address" name="address" type="textarea" value={form.address} onChange={update} span={4} placeholder="House no, area, city" />
               <Field label="Near by landmark" name="near_by_landmark" value={form.near_by_landmark} onChange={update} span={2} />
@@ -131,19 +131,19 @@ export default function ShipmentForm({ initial, onSave, onClose, saving }) {
           <fieldset className="section">
             <legend>Parcel</legend>
             <div className="grid">
-              <Field label="Barcode / article no." name="barcode_no" value={form.barcode_no} onChange={(e) => update({ target: { name: 'barcode_no', value: e.target.value.toUpperCase() } })} span={2} placeholder="EZ145475494IN" />
+              <Field label="Barcode / article no." name="barcode_no" value={form.barcode_no} onChange={(e) => update({ target: { name: 'barcode_no', value: e.target.value.toUpperCase() } })} span={2} placeholder="Jaise: EZ145475494IN" />
               <Field label="Order ID" name="order_id" value={form.order_id} onChange={update} span={2} />
               <Field label="Biller ID" name="biller_id" value={form.biller_id} onChange={update} />
               <Field label="Non BNPL code" name="non_bnpl_code" value={form.non_bnpl_code} onChange={update} />
-              <Field label="Weight" name="weight" value={form.weight} onChange={update} span={2} placeholder="540 gm" />
-              <Field label="Medicine / contents" name="medicine" type="textarea" value={form.medicine} onChange={update} span={4} placeholder="Vrikshamla 60 Cap, Slim Tea 50gm" />
+              <Field label="Weight" name="weight" value={form.weight} onChange={update} span={2} placeholder="Jaise: 540 gm" />
+              <Field label="Medicine / contents" name="medicine" type="textarea" value={form.medicine} onChange={update} span={4} placeholder="Jaise: Vrikshamla 60 Cap" />
             </div>
           </fieldset>
 
           <fieldset className="section">
             <legend>Payment</legend>
             <div className="grid">
-              <Field label="COD amount (₹)" name="cod_amount" type="number" min="0" step="0.01" value={form.cod_amount} onChange={update} placeholder="1800" />
+              <Field label="COD amount (₹)" name="cod_amount" type="number" min="0" step="0.01" value={form.cod_amount} onChange={update} placeholder="Jaise: 1800" />
               <label className="field span-3">
                 <span className="field-label">
                   In words

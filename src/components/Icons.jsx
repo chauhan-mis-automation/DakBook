@@ -11,3 +11,6 @@ export const IconLogout = (p) => (<svg {...base} {...p}><path d="M15 4h4v16h-4"/
 export const IconClose = (p) => (<svg {...base} {...p}><path d="M6 6l12 12M18 6L6 18"/></svg>)
 export const IconEye = (p) => (<svg {...base} {...p}><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>)
 export const IconRefresh = (p) => (<svg {...base} {...p}><path d="M20 11a8 8 0 10-2.3 5.7"/><path d="M20 4v7h-7"/></svg>)
+export const IconDownload = (p) => (<svg {...base} {...p}><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>)
+export const IconCalendar = (p) => (<svg {...base} {...p}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>)
+export const IconAlert = (p) => (<svg {...base} {...p}><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>)
