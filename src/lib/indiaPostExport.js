@@ -17,7 +17,7 @@ export const EXPORT_CONFIG = {
   instructionRts: 'RTS',     // RTS = Returned to Sender
   ack: false,
   registration: true,
-  otpBasedDelivery: true,
+  otpBasedDelivery: false,
   defaultWeightGrams: 500,   // agar parcel mein weight nahi bhara ho
 
   // Sender (aapka office)
