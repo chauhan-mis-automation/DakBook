@@ -546,7 +546,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lbl-name { font-weight: 700; font-size: 12pt; text-transform: uppercase; }
 .lbl-to { font-size: 11pt; }
 .lbl-to > div { text-transform: uppercase; }
-.lbl-code { text-align: center !important; vertical-align: middle !important; height: 78px; }
+.lbl-code { text-align: center !important; vertical-align: middle !important; height: 110px; }
 .lbl-barcode { max-width: 100%; height: auto; }
 .lbl-barcode-empty { height: 60px; }
 .lbl-big { font-weight: 700; font-size: 12pt !important; }
@@ -567,7 +567,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lbl-compact .lbl-name { font-size: 9pt; }
 .lbl-compact .lbl-to { font-size: 8pt; }
 .lbl-compact .lbl-code { height: auto; padding: 3px !important; }
-.lbl-compact .lbl-barcode { max-height: 16mm; }
+.lbl-compact .lbl-barcode { max-height: 20mm; }
 .lbl-compact .lbl-big { font-size: 9pt !important; }
 .lbl-compact .lbl-med, .lbl-compact .lbl-from { font-size: 7.4pt !important; }
 .lbl-compact .lbl-decl { font-size: 5.8pt !important; }
@@ -592,4 +592,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
   }
   .sheet-4 .sheet-cell { padding: 3mm; outline: 0.5px dashed #999; overflow: hidden; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Logo: poore box mein, bina khaali jagah ke */
+.lbl-logo-cell { position: relative; padding: 0 !important; }
+.lbl-logo {
+  position: absolute; inset: 2px;
+  width: calc(100% - 4px); height: calc(100% - 4px);
+  object-fit: contain;
 }
