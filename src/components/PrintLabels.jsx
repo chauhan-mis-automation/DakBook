@@ -39,10 +39,11 @@ export function Label({ s, compact = false }) {
     <article className={`lbl ${compact ? 'lbl-compact' : ''}`}>
       <table>
         <colgroup>
+          {/* Bade label mein right side patla, taaki logo ka box square jaisa rahe */}
           <col style={{ width: '19%' }} />
-          <col style={{ width: '45%' }} />
-          <col style={{ width: '12%' }} />
-          <col style={{ width: '24%' }} />
+          <col style={{ width: compact ? '41%' : '49%' }} />
+          <col style={{ width: compact ? '13%' : '11%' }} />
+          <col style={{ width: compact ? '27%' : '21%' }} />
         </colgroup>
         <tbody>
           <tr>
@@ -74,8 +75,8 @@ export function Label({ s, compact = false }) {
           <tr><th>STATE</th><td>{v(s.state)}</td></tr>
           <tr>
             <th>PINCODE</th><td className="lbl-strong">{v(s.pincode)}</td>
-            {/* Logo: right ke dono columns, pincode se label ke end tak */}
-            <td colSpan={2} rowSpan={7} className="lbl-logo-cell">
+            {/* Logo: chhote label mein pincode se in words tak, bade mein label ke end tak */}
+            <td colSpan={2} rowSpan={compact ? 5 : 7} className="lbl-logo-cell">
               <img src="/logo.png" alt="Jeewan Jyoti Ayurvedic Sansthan" className="lbl-logo" />
             </td>
           </tr>
@@ -89,8 +90,9 @@ export function Label({ s, compact = false }) {
             <th>IN WORDS</th>
             <td>{v(s.amount_in_words)}</td>
           </tr>
+          {/* Chhote label mein From aur Declaration poori chaudai mein, taaki ek-do line mein aayein */}
           <tr>
-            <td colSpan={2} className="lbl-from">
+            <td colSpan={compact ? 4 : 2} className="lbl-from">
               <span className="lbl-k">From:</span>
               <div className="lbl-name">{v(s.sender_name)}</div>
               <div>{v(s.sender_address)}</div>
@@ -98,7 +100,7 @@ export function Label({ s, compact = false }) {
             </td>
           </tr>
           <tr>
-            <td colSpan={2} className="lbl-decl">
+            <td colSpan={compact ? 4 : 2} className="lbl-decl">
               <b>DECLARATION BY SENDER :-</b> I HEREBY CERTIFY THAT THIS ARTICLE DOES NOT CONTAIN ANY
               DANGEROUS OR PROHIBITED GOODS ACCORDING TO INDIAN POST RULE.
             </td>

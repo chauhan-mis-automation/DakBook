@@ -594,10 +594,19 @@ button, input, select, textarea { font: inherit; color: inherit; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
-/* Logo: poore box mein, bina khaali jagah ke */
+/* ===== Label: sticker ki jagah + logo ===== */
+/* Barcode/sticker wala box */
+.lbl-code { height: 96px; }
+.lbl-compact .lbl-code { height: 21mm; padding: 2px !important; }
+
+/* Logo: poore box mein */
 .lbl-logo-cell { position: relative; padding: 0 !important; }
 .lbl-logo {
   position: absolute; inset: 2px;
   width: calc(100% - 4px); height: calc(100% - 4px);
-  object-fit: contain;
+  object-fit: contain; object-position: center;
 }
+.lbl-compact .lbl-logo { object-position: center top; }
+
+/* From: naam aur address ek-ek line mein */
+.lbl-from .lbl-name, .lbl-from > div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
